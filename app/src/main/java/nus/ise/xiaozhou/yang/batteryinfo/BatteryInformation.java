@@ -44,7 +44,7 @@ public class BatteryInformation extends Activity {
             batteryInfo.setText(
                     "Health: "+health+"\n"+
                             "Icon Small:"+icon_small+"\n"+
-                            "Level: "+level+"\n"+
+                            "Remaining Battery: "+level+ "%"+"\n"+
                             "Plugged: "+plugged+"\n"+
                             "Present: "+present+"\n"+
                             "Scale: "+scale+"\n"+
