@@ -52,9 +52,11 @@ public class BatteryInformation extends Activity {
                             "Battery Technology: " + technology + "\n" +
                             "Temperature: " + temperature + "\n" +
                             "Voltage: " + voltage + "\n");
-            imageBatteryState.setImageResource(icon_small);
-            imageBatteryState.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
+            imageBatteryState.setImageResource(icon_small);
+            imageBatteryState.setScaleX(5);
+            imageBatteryState.setScaleY(5);
+            imageBatteryState.setPadding(100,100,100,100);
         }
     };
 
