@@ -38,6 +38,7 @@ public class BatteryInformation extends Activity {
             int  status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, 0);
             String  technology = intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
             int  temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
+            temperature = temperature - 273;
             int  voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
 
 
@@ -46,12 +47,12 @@ public class BatteryInformation extends Activity {
                     "Health: " + health + "\n" +
                             "Remaining Battery: " + level + "%" + "\n" +
                             // "Phone Plugged?: " + plugged + "\n" +
-                            "Battery Present?: " + present + "\n" +
+                            "Battery Present? " + present + "\n" +
                             "Scale: " + scale + "\n" +
                             "Status: " + status + "\n" +
                             "Battery Technology: " + technology + "\n" +
-                            "Temperature: " + temperature + "\n" +
-                            "Voltage: " + voltage + "\n");
+                            "Temperature: " + temperature + " Celsius Degrees" + "\n" +
+                            "Voltage: " + voltage + " millivolt" + "\n");
 
             imageBatteryState.setImageResource(icon_small);
             imageBatteryState.setScaleX(5);
