@@ -12,15 +12,28 @@ import android.widget.TextView;
 
 
 public class BatteryInformation extends Activity {
+
     private TextView remainingTime, remainingPercentage, remainingPercentageData, batteryTechnology, batteryTechnologyData,
             batteryTemperature, batteryTemperatureData, batteryVoltage, batteryVoltageData,
-            batteryHealth, batteryHealthData, batteryChargingState, batteryChargingStateData;
+            batteryHealth, batteryHealthData, batteryChargingState, batteryChargingStateData,
+
+    //Trying to read current
+    batteryCurrent, batteryCurrentData;
+
     private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+
+            //Trying to read current
+            Long value = CurrentReaderFactory.getValue();
+            batteryCurrentData.setText(value.toString());
+
+
+
             final String DEGREE = "\u2103";
             boolean present = intent.getExtras().getBoolean(BatteryManager.EXTRA_PRESENT);
             if (present) {
+
                 Bundle bundle = intent.getExtras();
                 int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
                 int icon_small = intent.getIntExtra(BatteryManager.EXTRA_ICON_SMALL, 0);
@@ -52,20 +65,6 @@ public class BatteryInformation extends Activity {
 
                 batteryChargingState.setText("Charging State:");
                 batteryChargingStateData.setText(getStatusString(status) + " (" + getPlugTypeString(plugType) + ")");
-
-/*                batteryInfo.setText(
-                        "Remaining Battery: " + level + "%" + "\n" +
-                                "Battery Technology: " + technology + "\n" +
-                                "Temperature: " + temperature + " " + DEGREE + "\n" +
-                                "Voltage: " + voltage + " mV" + "\n" +
-                                "Health: " + getHealthString(health) + "\n" +
-                                "Charging State: " + getStatusString(status) + " (" + getPlugTypeString(plugType) + ")"
-                );*/
-
-/*                imageBatteryState.setImageResource(icon_small);
-                imageBatteryState.setScaleX(5);
-                imageBatteryState.setScaleY(5);
-                imageBatteryState.setPadding(500, 500, 500, 500);*/
 
             } else {
                 remainingTime.setText("Battery is not present!");
