@@ -19,7 +19,15 @@ public class InfoPackageWriter {
     private static BattInfoPackage _myInfoPacakge = new BattInfoPackage();
 
     public InfoPackageWriter(BattInfoPackage myInfoPacakge) {
-        this._myInfoPacakge = myInfoPacakge;
+        set_myInfoPacakge(myInfoPacakge);
+    }
+
+    public static BattInfoPackage get_myInfoPacakge() {
+        return _myInfoPacakge;
+    }
+
+    public static void set_myInfoPacakge(BattInfoPackage _myInfoPacakge) {
+        InfoPackageWriter._myInfoPacakge = _myInfoPacakge;
     }
 
     public static String get_battDataFileName() {
@@ -41,7 +49,8 @@ public class InfoPackageWriter {
             }
 
             File file = new File(dir, get_battDataFileName());
-            String battInfoString = this._myInfoPacakge.infoToString();
+
+            String battInfoString = get_myInfoPacakge().infoToString();
 
             try {
                 FileOutputStream fos = new FileOutputStream(file, true);
