@@ -1,6 +1,8 @@
 package nus.ise.xiaozhou.yang.batteryinfo;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -29,12 +31,23 @@ public class BattInfoPackage {
         this._batteryCurrent = batteryCurrent;
         this._chargingStatus = chargingStatus;
 
-        DateFormat[] formats = new DateFormat[]{
-                DateFormat.getDateTimeInstance(),
-        };
-        for (DateFormat df : formats) {
-            set_currentTime(df.format(new Date(0)));
-        }
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = df.format(c.getTime());
+        set_currentTime(formattedDate);
+
+    }
+
+    public String infoToString() {
+        String battDataString = "";
+        battDataString = "" + get_remainingPercentage() + " "
+                + get_batteryTemperature() + " "
+                + get_batteryVoltage() + " "
+                + get_batteryCurrent() + " "
+                + get_currentTime() + " "
+                + get_chargingStatus() + "\n";
+
+        return battDataString;
     }
 
     public void set_charging(String chargingStatus) {

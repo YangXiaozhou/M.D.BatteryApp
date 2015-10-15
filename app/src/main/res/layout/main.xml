@@ -176,6 +176,31 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/chargingstate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Charging State:"
+                android:textColor="#000000"
+                android:textSize="8pt" />
+
+
+            <TextView
+                android:id="@+id/chargingstatedata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Charging"
+                android:textColor="#000000"
+                android:textSize="8pt" />
+
+        </RelativeLayout>
+
 
 
     </LinearLayout>

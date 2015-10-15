@@ -71,6 +71,7 @@ public class BatteryInformation extends Activity {
                 //Create a new batt info package
                 BattInfoPackage myInfoPackage = new BattInfoPackage(level, temperature, voltage, current, getPlugTypeString(plugType));
                 InfoPackageWriter myBattInfoWriter = new InfoPackageWriter(myInfoPackage);
+                myBattInfoWriter.writeToBattDataFile();
 
 
             } else {
