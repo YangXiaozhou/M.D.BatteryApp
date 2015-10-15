@@ -13,21 +13,16 @@ import android.widget.TextView;
 
 public class BatteryInformation extends Activity {
 
-    private TextView remainingTime, remainingPercentage, remainingPercentageData, batteryTechnology, batteryTechnologyData,
-            batteryTemperature, batteryTemperatureData, batteryVoltage, batteryVoltageData,
-            batteryHealth, batteryHealthData, batteryChargingState, batteryChargingStateData,
+    private TextView remainingTime, remainingPercentage, remainingPercentageData,
+            batteryTechnology, batteryTechnologyData, batteryTemperature,
+            batteryTemperatureData, batteryVoltage, batteryVoltageData,
+            batteryHealth, batteryHealthData, batteryChargingState,
+            batteryChargingStateData, batteryCurrent, batteryCurrentData;
 
-    //Trying to read current
-    batteryCurrent, batteryCurrentData;
 
     private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
-            //Trying to read current
-            Long value = CurrentReaderFactory.getValue();
-            batteryCurrentData.setText(value.toString());
-
 
 
             final String DEGREE = "\u2103";
@@ -46,6 +41,10 @@ public class BatteryInformation extends Activity {
                 String technology = bundle.getString(BatteryManager.EXTRA_TECHNOLOGY);
 
 
+                //Get current from Current Reader
+                CurrentReader myCurrentReader = new CurrentReader();
+                double current = myCurrentReader.getCurrent();
+
                 remainingTime.setText("REMAINING TIME: 6 Hrs 54 Mins");
 
                 remainingPercentage.setText("Remaining Battery:");
@@ -60,11 +59,19 @@ public class BatteryInformation extends Activity {
                 batteryVoltage.setText("Voltage:");
                 batteryVoltageData.setText(voltage + " mV");
 
+                batteryCurrent.setText("Current:");
+                batteryCurrentData.setText(current + " mA");
+
                 batteryHealth.setText("Health:");
                 batteryHealthData.setText(getHealthString(health));
 
                 batteryChargingState.setText("Charging State:");
                 batteryChargingStateData.setText(getStatusString(status) + " (" + getPlugTypeString(plugType) + ")");
+
+                //Create a new batt info package
+                BattInfoPackage myInfoPackage = new BattInfoPackage(level, temperature, voltage, current, getPlugTypeString(plugType));
+                InfoPackageWriter myBattInfoWriter = new InfoPackageWriter(myInfoPackage);
+
 
             } else {
                 remainingTime.setText("Battery is not present!");
@@ -91,13 +98,16 @@ public class BatteryInformation extends Activity {
         batteryTemperatureData = (TextView) findViewById(R.id.temperaturedata);
         batteryVoltage = (TextView) findViewById(R.id.voltage);
         batteryVoltageData = (TextView) findViewById(R.id.voltagedata);
+        batteryCurrent = (TextView) findViewById(R.id.current);
+        batteryCurrentData = (TextView) findViewById(R.id.currentdata);
         batteryHealth = (TextView) findViewById(R.id.health);
         batteryHealthData = (TextView) findViewById(R.id.healthdata);
         batteryChargingState = (TextView) findViewById(R.id.chargingstate);
-        batteryChargingStateData = (TextView) findViewById(R.id.charingstatedata);
+        batteryChargingStateData = (TextView) findViewById(R.id.chargingstatedata);
 
         this.registerReceiver(this.batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
+
 
     private String getPlugTypeString(int plugged) {
         String plugType = "Unknown";

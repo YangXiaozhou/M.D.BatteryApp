@@ -1,8 +1,14 @@
+/*
 package nus.ise.xiaozhou.yang.batteryinfo;
 
-/**
+import java.io.File;
+
+*/
+/*
  * Created by YANG_XIAOZHOU on 3/10/15.
- */
+ *//*
+
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -51,3 +57,4 @@ public class OneLineReader {
     }
 
 }
+*/

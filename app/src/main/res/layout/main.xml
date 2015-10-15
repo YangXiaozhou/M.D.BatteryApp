@@ -12,18 +12,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
         android:text="Remaining Time: 2 hrs 34 mins"
         android:textColor="#000000"
         android:textSize="10pt" />
 
-    <ImageView
-        android:id="@+id/imageviewbatterystate"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/batterygraph" />
+    <!--    <ImageView
+            android:id="@+id/imageviewbatterystate"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/batterygraph" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,6 +133,30 @@
             android:paddingBottom="8dp">
 
             <TextView
+                android:id="@+id/current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current:"
+                android:textColor="#000000"
+                android:textSize="8pt" />
+
+            <TextView
+                android:id="@+id/currentdata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="4 mA"
+                android:textColor="#000000"
+                android:textSize="8pt" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+
+            <TextView
                 android:id="@+id/health"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -151,56 +176,9 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="8dp">
 
-            <TextView
-                android:id="@+id/chargingstate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Charging State:"
-                android:textColor="#000000"
-                android:textSize="8pt" />
-
-
-            <TextView
-                android:id="@+id/charingstatedata"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="Plugged (USB)"
-                android:textColor="#000000"
-                android:textSize="8pt" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="8dp">
-
-            <TextView
-                android:id="@+id/current"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Current:"
-                android:textColor="#000000"
-                android:textSize="8pt" />
-
-
-            <TextView
-                android:id="@+id/currentdata"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="3.22 A"
-                android:textColor="#000000"
-                android:textSize="8pt" />
-
-        </RelativeLayout>
 
     </LinearLayout>
+
 
 </LinearLayout>
