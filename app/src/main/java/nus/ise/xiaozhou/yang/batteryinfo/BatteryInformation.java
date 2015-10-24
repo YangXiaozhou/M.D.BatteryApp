@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,10 +67,15 @@ public class BatteryInformation extends Activity {
                 batteryHealthData.setText(getHealthString(health));
 
                 batteryChargingState.setText("Charging State:");
-                batteryChargingStateData.setText(getStatusString(status) + " (" + getPlugTypeString(plugType) + ")");
+                if (getStatusString(status).equals("Discharging") || getStatusString(status).equals("Not Charging")) {
+                    batteryChargingStateData.setText(getStatusString(status));
+                } else {
+                    batteryChargingStateData.setText(getStatusString(status) + " (" + getPlugTypeString(plugType) + ")");
+
+                }
 
                 //Create a new batt info package
-                BattInfoPackage myInfoPackage = new BattInfoPackage(level, temperature, voltage, current, getPlugTypeString(plugType));
+                BattInfoPackage myInfoPackage = new BattInfoPackage(level, temperature, voltage, current, getStatusString(status));
                 InfoPackageWriter myBattInfoWriter = new InfoPackageWriter(myInfoPackage);
                 myBattInfoWriter.writeToBattDataFile();
 
@@ -88,6 +94,9 @@ public class BatteryInformation extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        startService();
+
 
         //Find all textviews in the mainActivity
         remainingTime = (TextView) findViewById(R.id.remainingtime);
@@ -147,24 +156,28 @@ public class BatteryInformation extends Activity {
     }
 
     private String getStatusString(int status) {
-        String statusString = "Unknown";
+        String statusString = "Unknown_Foreground";
 
         switch (status) {
             case BatteryManager.BATTERY_STATUS_CHARGING:
-                statusString = "Charging";
+                statusString = "Charging_Foreground";
                 break;
             case BatteryManager.BATTERY_STATUS_DISCHARGING:
-                statusString = "Discharging";
+                statusString = "Discharging_Foreground";
                 break;
             case BatteryManager.BATTERY_STATUS_FULL:
-                statusString = "Full";
+                statusString = "Full_Foreground";
                 break;
             case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
-                statusString = "Not Charging";
+                statusString = "Not Charging_Foreground";
                 break;
         }
         return statusString;
     }
 
+    public void startService() {
+        Intent intent = new Intent(this, MyService.class);
+        startService(intent);
 
+    }
 }
