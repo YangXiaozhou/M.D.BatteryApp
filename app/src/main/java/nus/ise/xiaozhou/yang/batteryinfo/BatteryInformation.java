@@ -74,11 +74,6 @@ public class BatteryInformation extends Activity {
 
                 }
 
-                //Create a new batt info package
-                BattInfoPackage myInfoPackage = new BattInfoPackage(level, temperature, voltage, current, getStatusString(status));
-                InfoPackageWriter myBattInfoWriter = new InfoPackageWriter(myInfoPackage);
-                myBattInfoWriter.writeToBattDataFile();
-
 
             } else {
                 remainingTime.setText("Battery is not present!");
