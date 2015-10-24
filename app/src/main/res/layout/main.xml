@@ -197,7 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="Charging"
+                android:text="Charging_Foreground"
                 android:textColor="#000000"
                 android:textSize="8pt" />
 
