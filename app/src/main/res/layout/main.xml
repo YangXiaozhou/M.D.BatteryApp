@@ -13,11 +13,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:text="Remaining Time: 2 hrs 34 mins"
         android:textColor="#000000"
         android:textSize="10pt" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/currentGraph"
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp" />
 
     <!--    <ImageView
             android:id="@+id/imageviewbatterystate"
@@ -187,7 +194,7 @@
                 android:id="@+id/chargingstate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Charging State:"
+                android:text="State:"
                 android:textColor="#000000"
                 android:textSize="8pt" />
 

@@ -5,4 +5,13 @@
     <string name="action_settings">Settings</string>
     <string name="test">Test</string>
     <string name="battery_not_present">Battery is not present!</string>
+    <string name="startingRemainingTimeText">REMAINING TIME: 6 Hrs 54 Mins</string>
+    <string name="remainingBattery">Remaining Battery:</string>
+    <string name="batteryTechnology">Battery Technology:</string>
+    <string name="temperature">Temperature:</string>
+    <string name="voltage">Voltage:</string>
+    <string name="current">Current:</string>
+    <string name="health">Health:</string>
+    <string name="chargingState">State:</string>
+    <string name="batteryNotFound">Battery is not present!</string>
 </resources>

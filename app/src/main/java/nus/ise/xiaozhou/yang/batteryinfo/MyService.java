@@ -10,6 +10,9 @@ import android.os.BatteryManager;
 import android.os.IBinder;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by YANG_XIAOZHOU on 24/10/15.
  */
@@ -32,13 +35,23 @@ public class MyService extends Service {
 
                 //Get current from Current Reader
                 CurrentReader myCurrentReader = new CurrentReader();
-                double current = myCurrentReader.getCurrent();
+                double current = myCurrentReader.getValue();
+
+                //Create info pair and save for current graph
+                Calendar c = Calendar.getInstance();
+                Date currentDate = c.getTime();
+                DisplayGraphDataBase myDataBase = new DisplayGraphDataBase();
+
+                //Add new pair
+                CurrentTimeInfoPair infoPair = new CurrentTimeInfoPair(level, currentDate);
+                myDataBase.newPairAction(infoPair);
 
 
                 //Create a new batt info package
                 BattInfoPackage myInfoPackage = new BattInfoPackage(level, temperature, voltage, current, getStatusString(status));
                 InfoPackageWriter myBattInfoWriter = new InfoPackageWriter(myInfoPackage);
                 myBattInfoWriter.writeToBattDataFile();
+
 
 
             }
@@ -50,7 +63,7 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startID) {
         //this service will run until we stop it
-        Toast.makeText(this, "Service started...", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Service started...", Toast.LENGTH_LONG).show();
         return START_STICKY;
     }
 
@@ -58,7 +71,7 @@ public class MyService extends Service {
     public void onDestroy() {
 
         unregisterReceiver(batteryInfoReceiver);
-        Toast.makeText(this, "Service stopped", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Service stopped", Toast.LENGTH_LONG).show();
     }
 
     @Override
