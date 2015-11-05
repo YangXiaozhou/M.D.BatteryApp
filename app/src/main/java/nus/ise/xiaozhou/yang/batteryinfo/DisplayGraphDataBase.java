@@ -23,10 +23,10 @@ public class DisplayGraphDataBase {
         if (sizeOfDataBase < 50) {
             if (sizeOfDataBase == 0) {
                 infoPairData.add(0, infoPair);
-                sizeOfDataBase = sizeOfDataBase + 1;
+
             } else {
                 infoPairData.add(infoPair);
-                sizeOfDataBase = sizeOfDataBase + 1;
+
             }
 
 
@@ -34,13 +34,13 @@ public class DisplayGraphDataBase {
 
             if (infoPairData.get(0).get_dayOfTheWeek().equals(infoPair.get_dayOfTheWeek())) {  //Checking whether the new info is within 24 hrs of the existing data
                 infoPairData.add(infoPair);
-                sizeOfDataBase = sizeOfDataBase + 1;
+
             } else {
                 infoPairData.remove(0);
                 infoPairData.add(infoPair);
             }
         }
-
+        sizeOfDataBase = sizeOfDataBase + 1;
 
     }
 

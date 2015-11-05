@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -106,12 +107,21 @@ public class BatteryInformation extends Activity {
             series.resetData(values);
 
             //Format graph axis labels
-            SimpleDateFormat df = new SimpleDateFormat("HH:mm");
-            currentGraph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
+            //SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+
+            DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(context);
+
+            currentGraph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(context, dateFormat));
             currentGraph.getGridLabelRenderer().setNumHorizontalLabels(3);
             currentGraph.getGridLabelRenderer().setNumVerticalLabels(5);
             currentGraph.getGridLabelRenderer().setHorizontalAxisTitle("Time");
             currentGraph.getGridLabelRenderer().setVerticalAxisTitle("Percentage");
+
+            //Set range for Y Axis
+            currentGraph.getViewport().setYAxisBoundsManual(true);
+            currentGraph.getViewport().setMinY(0);
+            currentGraph.getViewport().setMaxY(100);
+
 
             // custom label formatter to show current "%"
             currentGraph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(
