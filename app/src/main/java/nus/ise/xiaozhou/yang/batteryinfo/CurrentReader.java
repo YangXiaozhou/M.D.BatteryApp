@@ -1,124 +1,20 @@
 package nus.ise.xiaozhou.yang.batteryinfo;
 
 import android.annotation.TargetApi;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Locale;
+
+import android.os.Build;
 
 /**
  * Created by YANG_XIAOZHOU on 14/10/15.
  */
 
-/*public class CurrentReader {
-    public static final int PROC_SPACE_TERM = (int) ' ';
-    public static final int PROC_OUT_LONG = 0x2000;
-    private static final String TAG = "CurrentReader";
-
-    private static final String CURRENT_FILE = "/sys/class/power_supply/battery/current_now";
-    private static final String CURRENT_FILE_HTC_ONE = "/sys/class/power_supply/battery/batt_attr_text";
-    private static final String CURRENT_FILE_HTC = "/sys/class/power_supply/battery/batt_current";
-    private static final String CURRENT_FILE_GALAXY_NOTE = "/sys/class/power_supply/battery/batt_current_adc";
-    private static final String CURRENT_FILE_NEXUS_10 = "/sys/class/power_supply/ds2784-fuelgauge/current_now";
-    private static final String CURRENT_FILE_NEXUS_ONE = "/sys/devices/platform/ds2784-battery/getcurrent";
-
-    private static final double CURRENT_CONV = 1e-6; // Source in microamps.
-    private static final int[] READ_LONG_FORMAT = new int[]{
-            PROC_SPACE_TERM | PROC_OUT_LONG
-    };
-    private static CurrentReader instance = null;
-    String currentFile;
-    double currentConv;
-    private Method methodReadProcFile;
-    private long[] readBuf;
-
-
-    public static CurrentReader getInstance() {
-        if (instance == null) {
-            instance = new CurrentReader();
-        }
-        return instance;
-    }
-
-    public boolean hasCurrent() {
-        return currentFile != null;
-    }
-
-    public double getCurrent() {
-
-        long curr = 0;
-
-        if (new File(CURRENT_FILE).exists()) {
-            currentFile = CURRENT_FILE;
-            currentConv = CURRENT_CONV;
-        } else if (new File(CURRENT_FILE_HTC_ONE).exists()) {
-            currentFile = CURRENT_FILE;
-            currentConv = CURRENT_CONV;
-        } else if (new File(CURRENT_FILE_GALAXY_NOTE).exists()) {
-            currentFile = CURRENT_FILE;
-            currentConv = CURRENT_CONV;
-        } else if (new File(CURRENT_FILE_HTC).exists()) {
-            currentFile = CURRENT_FILE;
-            currentConv = CURRENT_CONV;
-        } else if (new File(CURRENT_FILE_NEXUS_10).exists()) {
-            currentFile = CURRENT_FILE;
-            currentConv = CURRENT_CONV;
-        } else if (new File(CURRENT_FILE_NEXUS_ONE).exists()) {
-            currentFile = CURRENT_FILE;
-            currentConv = CURRENT_CONV;
-        }
-
-
-        if (hasCurrent()) {
-            curr = readLongFromFile(currentFile);
-        }
-
-        //return curr == -1 ? -1.0 : 0.11;
-        return curr == -1 ? -1.0 : currentConv * curr;
-    }
-
-    public long readLongFromFile(String file) {
-        if (methodReadProcFile == null) return -1;
-        try {
-            if ((Boolean) methodReadProcFile.invoke(
-                    null, file, READ_LONG_FORMAT, null, readBuf, null)) {
-                return readBuf[0];
-            }
-        } catch (IllegalAccessException e) {
-            Log.w(TAG, "Failed to get pid cpu usage");
-        } catch (InvocationTargetException e) {
-            Log.w(TAG, "Exception thrown while getting pid cpu usage");
-        }
-        return -1L;
-    }
-
-
-}*/
-
-/*
- *  Copyright (c) 2010-2013 Ran Manor
- *
- *  This file is part of CurrentWidget.
- *
- * 	CurrentWidget is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  CurrentWidget is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with CurrentWidget.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-
-import java.util.Locale;
-
-import android.os.Build;
 
 public class CurrentReader {
 
@@ -223,26 +119,6 @@ public class CurrentReader {
             }
         }
 
-        // HTC One X
-/*        if (CurrentReader.BUILD_MODEL.contains("htc one x")) {
-            f = new File("/sys/class/power_supply/battery/batt_attr_text");
-            if (f.exists()) {
-                Long value = BattAttrTextReader.getValue(f, "I_MBAT", "I_MBAT");
-                if (value != null)
-                    return value;
-            }
-        }*/
-
-        // wildfire S
-/*        if (CurrentReader.BUILD_MODEL.contains("wildfire s")) {
-            f = new File("/sys/class/power_supply/battery/smem_text");
-            if (f.exists()) {
-                Long value = BattAttrTextReader.getValue(f, "eval_current",
-                        "batt_current");
-                if (value != null)
-                    return value;
-            }
-        }*/
 
         // trimuph with cm7, lg ls670, galaxy s3, galaxy note 2
         if (CurrentReader.BUILD_MODEL.contains("triumph")
@@ -289,24 +165,7 @@ public class CurrentReader {
         if (f.exists()) {
             return OneLineReader.getValue(f, false);
         }
-		/* } */
 
-        // droid eris
-/*        f = new File("/sys/class/power_supply/battery/smem_text");
-        if (f.exists()) {
-            Long value = SMemTextReader.getValue();
-            if (value != null)
-                return value;
-        }*/
-
-        // htc sensation / evo 3d
-/*        f = new File("/sys/class/power_supply/battery/batt_attr_text");
-        if (f.exists()) {
-            Long value = BattAttrTextReader.getValue(f,
-                    "batt_discharge_current", "batt_current");
-            if (value != null)
-                return value;
-        }*/
 
         // some htc devices
         f = new File("/sys/class/power_supply/battery/batt_current");
@@ -384,6 +243,130 @@ public class CurrentReader {
         }
 
         f = new File("/sys/class/power_supply/Battery/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+
+        f = new File("/sys/class/power_supply/ab8500_fg/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/android-battery/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/batt_attr_text");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/batt_chg_current");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/batt_current");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/batt_current_adc");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/batt_current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/BatteryAverageCurrent");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/charger_current");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/current_avg");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/current_max");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/Battery/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/battery/smem_text");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/bq27520/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/da9052-bat/current_avg");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/ds2784-fuelgauge/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/max17042-0/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/class/power_supply/max170xx_battery/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/devices/platform/battery/power_supply/battery/BatteryAverageCurrent");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/devices/platform/cpcap_battery/power_supply/usb/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/devices/platform/ds2784-battery/getcurrent");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/devices/platform/i2c-adapter/i2c-0/0-0036/power_supply/battery/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/devices/platform/i2c-adapter/i2c-0/0-0036/power_supply/ds2746-battery/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/devices/platform/msm-charger/power_supply/battery_gauge/current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/devices/platform/mt6320-battery/power_supply/battery/BatteryAverageCurrent");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/devices/platform/mt6329-battery/FG_Battery_CurrentConsumption");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+        f = new File("/sys/EcControl/BatCurrent");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+
+        f = new File("/sys/devices//platform/htc_battery/power_supply/battery/batt_current_now");
+        if (f.exists()) {
+            return OneLineReader.getValue(f, false);
+        }
+
+
+        f = new File("/sys/devices/platform/msm-battery/power_supply/battery/chg_current_adc");
         if (f.exists()) {
             return OneLineReader.getValue(f, false);
         }
